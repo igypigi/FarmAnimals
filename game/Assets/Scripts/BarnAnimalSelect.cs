@@ -7,12 +7,12 @@ public class BarnAnimalSelect : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		// TODO: Create a sequence list of animals
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// TODO: If animal was correctly choosen send animals out and select next one from list
 	}
 	
 	void OnGUI () {
