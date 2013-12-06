@@ -9,7 +9,7 @@ public class ThirdPersonController : MonoBehaviour
 
 // Require a character controller to be attached to the same game object
 //@script RequireComponent(CharacterController)
-
+public Transform cameraTransform;
 public AnimationClip idleAnimation;
 public AnimationClip walkAnimation;
 public AnimationClip runAnimation;
@@ -134,7 +134,6 @@ public AnimationClip jumpPoseAnimation;
 
 void  UpdateSmoothedMovementDirection ()
 {
-	Transform cameraTransform= Camera.main.transform;
 	bool grounded= IsGrounded();
 	
 	// Forward vector relative to the camera along the x-z plane	
