@@ -23,6 +23,9 @@ public class StartBarnSelect : MonoBehaviour
 		float distance = Vector3.Distance (gameObject.transform.position, player.transform.position);
 		if (distance < 1.9 && userOnSpot) {
 			Debug.Log ("User on spot");
+			GlobalFunctions.switchCamera("Barn Camera");
+		} else {
+			GlobalFunctions.switchCamera("Main Camera");
 		}
 	}
 }

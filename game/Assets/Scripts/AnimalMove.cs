@@ -17,10 +17,10 @@ public class AnimalMove : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (moveToPoint != null) {
+		if (moving) {
 			// Distance beetwen move to point and animal
 			float distance = Vector3.Distance(gameObject.transform.position, moveToPoint);
-			if (distance > 0.2 && moving) {
+			if (distance > 0.2) {
 				// If distance is larger than 10.0 than run else walk
 				if (distance > 10.0) {
 					agent.speed = 7;
@@ -32,7 +32,6 @@ public class AnimalMove : MonoBehaviour {
 				agent.SetDestination(moveToPoint);
 			} else {
 				// Animal reached spot, so stop movement
-				moveToPoint = null;
 				moving = false;
 			}
 		} else {
