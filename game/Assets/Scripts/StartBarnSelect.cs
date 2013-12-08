@@ -5,11 +5,13 @@ public class StartBarnSelect : MonoBehaviour
 {
 	private static bool userOnSpot = false;
 	private static GameObject player;
+	private static GameObject barn;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		player = GameObject.Find ("Player");
+		barn = GameObject.Find ("Barn");
 	}
 	
 	// Update is called once per frame
@@ -23,9 +25,18 @@ public class StartBarnSelect : MonoBehaviour
 		float distance = Vector3.Distance (gameObject.transform.position, player.transform.position);
 		if (distance < 1.9 && userOnSpot) {
 			Debug.Log ("User on spot");
-			GlobalFunctions.switchCamera("Barn Camera");
+			GlobalFunctions.switchCamera ("Barn Camera");
+			// Disable user movement script
+			player.GetComponent<ThirdPersonController> ().enabled = false;
+			// Enable barn select script
+			barn.GetComponent<BarnAnimalSelect> ().enabled = true;
 		} else {
-			GlobalFunctions.switchCamera("Main Camera");
+			Debug.Log ("User off spot");
+			GlobalFunctions.switchCamera ("Main Camera");
+			// Enable user movement script
+			player.GetComponent<ThirdPersonController> ().enabled = true;
+			// Disable barn select script
+			barn.GetComponent<BarnAnimalSelect> ().enabled = false;
 		}
 	}
 }

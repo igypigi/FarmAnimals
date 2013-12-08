@@ -13,21 +13,18 @@ public class GlobalFunctions : MonoBehaviour {
 	}
 
 	public static void switchCamera (string cameraName) {
-		// If camera not already enabled
-		if (cameraName != Camera.current.name) {
-			Debug.Log("Switching to camera " + cameraName);
+		Debug.Log("Switching to camera " + cameraName);
 
-			// Loop through all cameras in scene
-			foreach (GameObject cam in GameObject.FindGameObjectsWithTag("Camera")) {
-				Camera theCam = cam.GetComponent<Camera>() as Camera;
+		// Loop through all cameras in scene
+		foreach (GameObject cam in GameObject.FindGameObjectsWithTag("Camera")) {
+			Camera theCam = cam.GetComponent<Camera>() as Camera;
 
-				// Enable cameraName and disable other
-				if (cam.name == cameraName) {
-					theCam.enabled = true;
-				} else {
-					theCam.enabled = false;
-				}
-			}  
-		}
+			// Enable cameraName and disable other
+			if (cam.name == cameraName) {
+				theCam.enabled = true;
+			} else {
+				theCam.enabled = false;
+			}
+		}  
 	}
 }
