@@ -1,16 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class GlobalFunctions : MonoBehaviour {
-
-	// TODO: Remove Start and Update functions
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+public class GlobalFunctions {
+	// List of all animals
+	public static List<Animal> animals = readAnimals();
 
 	public static void switchCamera (string cameraName) {
 		Debug.Log("Switching to camera " + cameraName);
@@ -26,5 +20,39 @@ public class GlobalFunctions : MonoBehaviour {
 				theCam.enabled = false;
 			}
 		}  
+	}
+
+	private static List<Animal> readAnimals () {
+		List<Animal> list = new List<Animal>();
+		// TODO: read animals from JSON or XML file
+
+		list.Add(new Animal("pig", "Pig", "PigM", "This is a male pig"));
+		list.Add(new Animal("pig", "Sow", "PigF", "This is a female pig"));
+		list.Add(new Animal("pig", "Piglet", "PigC", "This is a child pig"));
+
+		return list;
+	}
+}
+
+
+// Animal class
+public class Animal
+{	
+	//Properties. 
+	public string Breed { get; set; }
+	public string Name { get; set; }
+	public string ObjectName { get; set; }
+	public string Description { get; set; }
+
+	public bool inBarn;
+	
+	// Instance constructor that has three parameters. 
+	public Animal (string breed, string name, string objectName, string desc)
+	{
+		this.Breed = breed;
+		this.Name = name;
+		this.ObjectName = objectName;
+		this.Description = desc;
+		inBarn = true;
 	}
 }

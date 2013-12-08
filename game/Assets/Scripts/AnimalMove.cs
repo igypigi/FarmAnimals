@@ -39,7 +39,7 @@ public class AnimalMove : MonoBehaviour {
 		}
 	}
 
-	public static void setMoving (bool move, Vector3 moveTo) {
+	public void setMoving (bool move, Vector3 moveTo) {
 		moving = move;
 		moveToPoint = moveTo;
 	}
