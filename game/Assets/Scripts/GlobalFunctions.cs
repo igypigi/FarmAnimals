@@ -25,6 +25,19 @@ public class GlobalFunctions {
 	private static List<Animal> readAnimals () {
 		List<Animal> list = new List<Animal>();
 		// TODO: read animals from JSON or XML file
+		/*
+		animals.xml or json
+		<breed>
+			<male>
+			<female>
+			<child>
+				<name>
+				<object name>
+				<desription>
+			</child>
+		</breed>
+		<breed>....
+		 */
 
 		list.Add(new Animal("pig", "Pig", "PigM", "This is a male pig"));
 		list.Add(new Animal("pig", "Sow", "PigF", "This is a female pig"));
@@ -43,16 +56,14 @@ public class Animal
 	public string Name { get; set; }
 	public string ObjectName { get; set; }
 	public string Description { get; set; }
-
-	public bool inBarn;
+	public bool inBarn { get; set; }
 	
-	// Instance constructor that has three parameters. 
 	public Animal (string breed, string name, string objectName, string desc)
 	{
 		this.Breed = breed;
 		this.Name = name;
 		this.ObjectName = objectName;
 		this.Description = desc;
-		inBarn = true;
+		this.inBarn = true;
 	}
 }

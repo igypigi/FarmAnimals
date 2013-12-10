@@ -20,7 +20,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 		if (!animalInPlace) {
 			// Get current animal
 			currentAnimal = GlobalFunctions.animals[currentAnimalIndex];
-			Debug.Log("Moving animal to entrance: " + currentAnimal.Name);
+			Debug.Log("Moving animal to entrance: " + currentAnimal.Name + ", " + currentAnimal.ObjectName);
 
 			// Get animal object from scene
 			GameObject animalObject = GameObject.Find (currentAnimal.ObjectName);
@@ -29,12 +29,13 @@ public class BarnAnimalSelect : MonoBehaviour {
 				true, 
 				GameObject.Find ("AnimalBarnSpot").transform.position
 			);
+
 			animalInPlace = true;
 		}
 	}
 	
 	void OnGUI () {
-		GUI.Box(new Rect(10, 10, 3 * 90 + 20, GlobalFunctions.animals.Count * 50 + 50), "Izberi živali");
+		GUI.Box(new Rect(10, 10, 3 * 90 + 20, GlobalFunctions.animals.Count / 3 * 50 + 50), "Izberi živali");
 		int index = 0;
 		
 		foreach (Animal animal in GlobalFunctions.animals) {
@@ -58,6 +59,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 						currentAnimalIndex = 0;
 					}
 					animal.inBarn = false;
+					animalInPlace = false;
 				}
 			}
 			index++;

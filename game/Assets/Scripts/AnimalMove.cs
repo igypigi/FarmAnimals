@@ -11,7 +11,7 @@ public class AnimalMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		agent = GetComponent<NavMeshAgent>();
+		agent = gameObject.GetComponent<NavMeshAgent> ();
 		player = GameObject.Find ("Player");
 	}
 
@@ -40,6 +40,7 @@ public class AnimalMove : MonoBehaviour {
 	}
 
 	public void setMoving (bool move, Vector3 moveTo) {
+		Debug.Log("Moving set for animal " + gameObject.name);
 		moving = move;
 		moveToPoint = moveTo;
 	}
