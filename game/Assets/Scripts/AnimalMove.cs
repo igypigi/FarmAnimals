@@ -4,6 +4,7 @@ using System.Collections;
 public class AnimalMove : MonoBehaviour {
 	private NavMeshAgent agent;
 	private GameObject player;
+	private Vector3 firstPosition;
 
 	// If animals should move this variable should be set
 	private Vector3 moveToPoint;
@@ -13,6 +14,7 @@ public class AnimalMove : MonoBehaviour {
 	void Start () {
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 		player = GameObject.Find ("Player");
+		firstPosition = gameObject.transform.position;
 	}
 
 	// Update is called once per frame
@@ -42,5 +44,9 @@ public class AnimalMove : MonoBehaviour {
 	public void setMoving (Vector3 moveTo) {
 		moving = true;
 		moveToPoint = moveTo;
+	}
+
+	public Vector3 getFirstPostion () {
+		return firstPosition;
 	}
 }

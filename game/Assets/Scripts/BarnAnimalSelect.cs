@@ -6,7 +6,6 @@ public class BarnAnimalSelect : MonoBehaviour {
 	public GameObject animalStopSpot;
 
 	private GameObject player;
-	private Vector3 firstPosition;
 
 	// Current animal
 	private Animal currentAnimal;
@@ -17,7 +16,6 @@ public class BarnAnimalSelect : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find ("Player");
 		currentAnimal = GlobalFunctions.animals[0];
-		firstPosition = gameObject.transform.position;
 	}
 
 	// Update is called once per frame
@@ -37,21 +35,21 @@ public class BarnAnimalSelect : MonoBehaviour {
 		foreach (Animal animal in GlobalFunctions.animals) {
 			if (GUI.Button(new Rect(index % 3 * 90 + 20, (index / 3 + 1) * 50, 80, 40), animal.Name)) {
 				// If animal is in place and is selected correctly release animal
-				bool correct = false;
-
-				// Animal is correctly choosen
-				if (animalInPlace && animal.Name == currentAnimal.Name) {
-					correct = true;
-
-					Debug.Log("Animal selected correctly: " + animal.Name);
-					// Send animal away
-					moveAnimal (GameObject.Find (currentAnimal.Breed + "Fence").transform.position);
-
-					animal.inBarn = false;
+				if (animalInPlace) {
+					bool correct = false;
+					if (animal.Name == currentAnimal.Name) {
+						correct = true;
+						
+						Debug.Log("Animal selected correctly: " + animal.Name);
+						// Send animal away
+						moveAnimal (GameObject.Find (currentAnimal.Breed + "Fence").transform.position);
+						
+						animal.inBarn = false;
+					}
+					// Get next animal
+					setNextAnimal(correct);
 					animalInPlace = false;
 				}
-				// Get next animal
-				setNextAnimal(correct);
 			}
 			index ++;
 		}	
@@ -63,7 +61,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 
 		// Send animal back if wrong button pressed
 		if (!correct) {
-			moveAnimal (firstPosition);
+			moveAnimal (GameObject.Find (currentAnimal.ObjectName).GetComponent<AnimalMove> ().getFirstPostion ());
 		}
 
 		// Get next animal that is not yet released

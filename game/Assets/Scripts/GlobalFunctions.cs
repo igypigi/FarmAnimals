@@ -43,6 +43,10 @@ public class GlobalFunctions {
 		list.Add(new Animal("Pig", "Sow", "PigF", "This is a female pig"));
 		list.Add(new Animal("Pig", "Piglet", "PigC", "This is a child pig"));
 
+		list.Add(new Animal("Sheep", "Ram", "SheepM", "This is a male sheep"));
+		list.Add(new Animal("Sheep", "Sheep", "SheepF", "This is a female sheep"));
+		list.Add(new Animal("Sheep", "Lamb", "SheepC", "This is a child sheep"));
+
 		return list;
 	}
 }
