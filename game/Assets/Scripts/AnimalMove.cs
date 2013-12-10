@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class AnimalMove : MonoBehaviour {
-	private static NavMeshAgent agent;
-	private static GameObject player;
+	private NavMeshAgent agent;
+	private GameObject player;
 
 	// If animals should move this variable should be set
-	private static Vector3 moveToPoint;
-	private static bool moving;
+	private Vector3 moveToPoint;
+	private bool moving;
 
 	// Use this for initialization
 	void Start () {
@@ -40,7 +40,6 @@ public class AnimalMove : MonoBehaviour {
 	}
 
 	public void setMoving (bool move, Vector3 moveTo) {
-		Debug.Log("Moving set for animal " + gameObject.name);
 		moving = move;
 		moveToPoint = moveTo;
 	}
