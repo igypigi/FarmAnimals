@@ -39,9 +39,9 @@ public class GlobalFunctions {
 		<breed>....
 		 */
 
-		list.Add(new Animal("pig", "Pig", "PigM", "This is a male pig"));
-		list.Add(new Animal("pig", "Sow", "PigF", "This is a female pig"));
-		list.Add(new Animal("pig", "Piglet", "PigC", "This is a child pig"));
+		list.Add(new Animal("Pig", "Pig", "PigM", "This is a male pig"));
+		list.Add(new Animal("Pig", "Sow", "PigF", "This is a female pig"));
+		list.Add(new Animal("Pig", "Piglet", "PigC", "This is a child pig"));
 
 		return list;
 	}

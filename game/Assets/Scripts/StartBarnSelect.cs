@@ -3,9 +3,12 @@ using System.Collections;
 
 public class StartBarnSelect : MonoBehaviour
 {
-	private static bool userOnSpot = false;
-	private static GameObject player;
-	private static GameObject barn;
+	// Where user must stand
+	public GameObject startScriptSpot;
+
+	private bool userOnSpot = false;
+	private GameObject player;
+	private GameObject barn;
 	
 	// Use this for initialization
 	void Start ()
@@ -22,21 +25,23 @@ public class StartBarnSelect : MonoBehaviour
 		}
 
 		// If user presses Return and is standing on a pod than start animal select
-		float distance = Vector3.Distance (gameObject.transform.position, player.transform.position);
+		float distance = Vector3.Distance (startScriptSpot.transform.position, player.transform.position);
 		if (distance < 1.9 && userOnSpot) {
-			Debug.Log ("User on spot");
-			GlobalFunctions.switchCamera ("Barn Camera");
-			// Disable user movement script
-			player.GetComponent<ThirdPersonController> ().enabled = false;
-			// Enable barn select script
-			barn.GetComponent<BarnAnimalSelect> ().enabled = true;
+			startAnimalBarnSelect(true);
 		} else {
-			Debug.Log ("User off spot");
-			GlobalFunctions.switchCamera ("Main Camera");
-			// Enable user movement script
-			player.GetComponent<ThirdPersonController> ().enabled = true;
-			// Disable barn select script
-			barn.GetComponent<BarnAnimalSelect> ().enabled = false;
+			startAnimalBarnSelect(false);
 		}
+	}
+
+	public void startAnimalBarnSelect (bool change) {
+		if (change) {
+			GlobalFunctions.switchCamera ("Barn Camera");
+		} else {
+			GlobalFunctions.switchCamera ("Main Camera");
+		}
+		// Enable/disable user movement script
+		player.GetComponent<ThirdPersonController> ().enabled = !change;
+		// Disable/enable barn select script
+		barn.GetComponent<BarnAnimalSelect> ().enabled = change;
 	}
 }
