@@ -10,7 +10,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 	// Current animal
 	private Animal currentAnimal;
 	private int currentAnimalIndex = 0;
-	private bool animalInPlace = false;
+	private bool moveNextAnimal = true;
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +21,9 @@ public class BarnAnimalSelect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Is animal in place
-		if (!animalInPlace) {
-			Debug.Log("Moving animal to entrance: " + currentAnimal.Name);
+		if (moveNextAnimal) {
 			moveAnimal (animalStopSpot.transform.position);
-			animalInPlace = true;
+			moveNextAnimal = false;
 		}
 	}
 	
@@ -45,13 +44,14 @@ public class BarnAnimalSelect : MonoBehaviour {
 				}
 				// Get next animal
 				setNextAnimal (correct);
-				animalInPlace = false;
+				moveNextAnimal = true;
 			}
 			index ++;
 		}	
 	}
 
 	private void setNextAnimal (bool correct) {
+		Animal nextAnimal = currentAnimal;
 		int numberOfAnimals = GlobalFunctions.animals.Count;
 		int animalsLeft = numberOfAnimals;
 
@@ -63,8 +63,8 @@ public class BarnAnimalSelect : MonoBehaviour {
 			if (currentAnimalIndex == numberOfAnimals) {
 				currentAnimalIndex = 0;
 			}
-			currentAnimal = GlobalFunctions.animals[currentAnimalIndex];
-			animalInBarn = currentAnimal.inBarn;
+			nextAnimal = GlobalFunctions.animals[currentAnimalIndex];
+			animalInBarn = nextAnimal.inBarn;
 
 			// Are all animals released
 			if (animalsLeft == 0) {
@@ -81,10 +81,11 @@ public class BarnAnimalSelect : MonoBehaviour {
 			animalsLeft --;
 		}
 
-		// Send animal back if wrong button pressed and this is not the only animal in barn
-		if (!correct && animalsLeft == 0) {
+		// Send old animal back if wrong button pressed and this is not the only animal in barn
+		if (!correct && animalsLeft > 0) {
 			moveAnimal (GameObject.Find (currentAnimal.ObjectName).GetComponent<AnimalMove> ().getFirstPostion ());
 		}
+		currentAnimal = nextAnimal;
 	}
 
 	private void moveAnimal (Vector3 position) {
