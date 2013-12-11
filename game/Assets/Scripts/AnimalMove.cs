@@ -3,7 +3,6 @@ using System.Collections;
 
 public class AnimalMove : MonoBehaviour {
 	private NavMeshAgent agent;
-	private GameObject player;
 	private Vector3 firstPosition;
 
 	// If animals should move this variable should be set
@@ -13,7 +12,6 @@ public class AnimalMove : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		agent = gameObject.GetComponent<NavMeshAgent> ();
-		player = GameObject.Find ("Player");
 		firstPosition = gameObject.transform.position;
 	}
 
