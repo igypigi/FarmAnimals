@@ -4,7 +4,7 @@ using System.Collections;
 public class AnimalMove : MonoBehaviour {
 	private NavMeshAgent agent;
 	private Vector3 firstPosition;
-	private Animal animal;
+	public Animal animal;
 
 	// If animals should move this variable should be set
 	private Vector3 moveToPoint;
@@ -47,7 +47,11 @@ public class AnimalMove : MonoBehaviour {
 		moveToPoint = moveTo;
 	}
 
-	public Vector3 getFirstPostion () {
-		return firstPosition;
+	public void goToFirstPostion () {
+		setMoving (firstPosition);
+	}
+
+	public void goToFence () {
+		setMoving (GameObject.Find(animal.Breed + "Fence").transform.position);
 	}
 }

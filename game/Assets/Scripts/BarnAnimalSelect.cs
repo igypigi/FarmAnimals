@@ -8,21 +8,22 @@ public class BarnAnimalSelect : MonoBehaviour {
 	private GameObject player;
 
 	// Current animal
-	private Animal currentAnimal;
+	private AnimalMove currentAnimal;
 	private int currentAnimalIndex = 0;
 	private bool moveNextAnimal = true;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
-		currentAnimal = GlobalFunctions.animals[0];
+		// Get first animal from list
+		currentAnimal = GameObject.Find(GlobalFunctions.animals[0].ObjectName).GetComponent<AnimalMove>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		// Is animal in place
 		if (moveNextAnimal) {
-			moveAnimal (animalStopSpot.transform.position);
+			currentAnimal.setMoving(animalStopSpot.transform.position);
 			moveNextAnimal = false;
 		}
 	}
@@ -35,11 +36,11 @@ public class BarnAnimalSelect : MonoBehaviour {
 			if (GUI.Button(new Rect(index % 3 * 90 + 20, (index / 3 + 1) * 50, 80, 40), animal.Name)) {
 				// If is selected correctly release animal
 				bool correct = false;
-				if (animal.Name == currentAnimal.Name) {
+				if (animal.Name == currentAnimal.animal.Name) {
 					Debug.Log("Animal selected correctly: " + animal.Name);
 					correct = true;
 					// Send animal to its fence
-					moveAnimal (GameObject.Find (currentAnimal.Breed + "Fence").transform.position);
+					currentAnimal.goToFence();
 					animal.inBarn = false;
 				}
 				// Get next animal
@@ -51,7 +52,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 	}
 
 	private void setNextAnimal (bool correct) {
-		Animal nextAnimal = currentAnimal;
+		Animal nextAnimal = currentAnimal.animal;
 		int numberOfAnimals = GlobalFunctions.animals.Count;
 		int animalsLeft = numberOfAnimals;
 
@@ -83,15 +84,8 @@ public class BarnAnimalSelect : MonoBehaviour {
 
 		// Send old animal back if wrong button pressed and this is not the only animal in barn
 		if (!correct && animalsLeft > 0) {
-			moveAnimal (GameObject.Find (currentAnimal.ObjectName).GetComponent<AnimalMove> ().getFirstPostion ());
+			currentAnimal.goToFirstPostion();
 		}
-		currentAnimal = nextAnimal;
-	}
-
-	private void moveAnimal (Vector3 position) {
-		// Get animal object from scene
-		GameObject animalObject = GameObject.Find (currentAnimal.ObjectName);
-		// Get animal script and activate moving
-		animalObject.GetComponent<AnimalMove> ().setMoving (position);
+		currentAnimal = GameObject.Find(nextAnimal.ObjectName).GetComponent<AnimalMove>();
 	}
 }
