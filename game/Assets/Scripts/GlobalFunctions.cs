@@ -7,8 +7,6 @@ public class GlobalFunctions {
 	public static List<Animal> animals = readAnimals();
 
 	public static void switchCamera (string cameraName) {
-		Debug.Log("Switching to camera " + cameraName);
-
 		// Loop through all cameras in scene
 		foreach (GameObject cam in GameObject.FindGameObjectsWithTag("Camera")) {
 			Camera theCam = cam.GetComponent<Camera>() as Camera;

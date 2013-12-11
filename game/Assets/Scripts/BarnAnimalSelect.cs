@@ -47,7 +47,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 						animal.inBarn = false;
 					}
 					// Get next animal
-					setNextAnimal(correct);
+					setNextAnimal (correct);
 					animalInPlace = false;
 				}
 			}
@@ -56,27 +56,22 @@ public class BarnAnimalSelect : MonoBehaviour {
 	}
 
 	private void setNextAnimal (bool correct) {
-		int numberOfAnimals = GlobalFunctions.animals.Count - 1;
+		int numberOfAnimals = GlobalFunctions.animals.Count;
 		int animalsLeft = numberOfAnimals;
 
-		// Send animal back if wrong button pressed
-		if (!correct) {
-			moveAnimal (GameObject.Find (currentAnimal.ObjectName).GetComponent<AnimalMove> ().getFirstPostion ());
-		}
-
 		// Get next animal that is not yet released
-		while (!currentAnimal.inBarn || !correct) {
+		bool oneLoop = correct;
+		while (!currentAnimal.inBarn || !oneLoop) {
 			// Take next animal
-			if (currentAnimalIndex < numberOfAnimals) {
+			if (currentAnimalIndex < numberOfAnimals - 1) {
 				currentAnimalIndex ++;
 			} else {
 				currentAnimalIndex = 0;
 			}
 			currentAnimal = GlobalFunctions.animals[currentAnimalIndex];
-			correct = true;
+			oneLoop = true;
 
 			// Are all animals released
-			animalsLeft --;
 			if (animalsLeft == 0) {
 				Debug.Log("----------- All animals released.");
 				// Remove start animal select script
@@ -88,8 +83,13 @@ public class BarnAnimalSelect : MonoBehaviour {
 				Destroy(this);
 				break;
 			}
+			animalsLeft --;
 		}
 
+		// Send animal back if wrong button pressed and this is not the only animal in barn
+		if (!correct && animalsLeft > 0) {
+			moveAnimal (GameObject.Find (currentAnimal.ObjectName).GetComponent<AnimalMove> ().getFirstPostion ());
+		}
 	}
 
 	private void moveAnimal (Vector3 position) {

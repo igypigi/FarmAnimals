@@ -24,10 +24,10 @@ public class AnimalMove : MonoBehaviour {
 				// If distance is larger than 10.0 than run else walk
 				if (distance > 10.0) {
 					agent.speed = 7;
-					animation.Play("run", PlayMode.StopAll);
+					animation.Play("Run", PlayMode.StopAll);
 				} else {
 					agent.speed = 4;
-					animation.Play("walk", PlayMode.StopAll);
+					animation.Play("Walk", PlayMode.StopAll);
 				}
 				agent.SetDestination(moveToPoint);
 			} else {
@@ -35,7 +35,7 @@ public class AnimalMove : MonoBehaviour {
 				moving = false;
 			}
 		} else {
-			animation.Play("idle", PlayMode.StopAll);
+			animation.Play("Idle", PlayMode.StopAll);
 		}
 	}
 
