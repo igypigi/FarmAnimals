@@ -68,4 +68,13 @@ public class Animal
 		this.Description = desc;
 		this.inBarn = true;
 	}
+
+	public static Animal getAnimalByObjectName (string name) {
+		foreach (Animal animal in GlobalFunctions.animals) {
+			if (animal.ObjectName == name) {
+				return animal;
+			}
+		}
+		return null;
+	}
 }
