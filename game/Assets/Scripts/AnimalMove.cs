@@ -8,9 +8,10 @@ public class AnimalMove : MonoBehaviour {
 
 	// If animals should move this variable should be set
 	private Vector3 moveToPoint;
-	private bool moveNavmesh;
+	private bool moveNavmesh = false;
 	private bool moveRandom = false;
-	private bool moveInProgress = false;
+	private bool running = false;
+	private bool walking = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +26,20 @@ public class AnimalMove : MonoBehaviour {
 		if (moveNavmesh) {
 			navmeshMove ();
 		} else if (moveRandom) {
-			randomMove ();
-		} else if (!moveInProgress) {
+			StartCoroutine(randomMove());   
+		}
+
+		if (running) {
+			agent.speed = 7;
+			animation.Play("Run", PlayMode.StopAll);
+		} else if (walking) {
+			agent.speed = 4;
+			animation.Play("Walk", PlayMode.StopAll);
+			if (moveRandom) {
+				transform.Translate(4*Time.deltaTime,0,0);
+			}
+		} else {
+			Debug.Log("Idle");
 			animation.Play("Idle", PlayMode.StopAll);
 		}
 	}
@@ -43,29 +56,35 @@ public class AnimalMove : MonoBehaviour {
 	public void goToFence () {
 		setMoving (GameObject.Find(animal.Breed + "Fence").transform.position);
 		// Start random move
-		moveRandom = true;
+//		moveRandom = true;
 	}
 
-	public void randomMove () {
-
+	IEnumerator randomMove () {
+		walking = true;
+		Debug.Log("Move random");
+		yield return new WaitForSeconds (8.0f);
+		Debug.Log("Stop random");
+		walking = false;
 	}
 
 	public void navmeshMove () {
 		// Distance beetwen move to point and animal
 		float distance = Vector3.Distance(gameObject.transform.position, moveToPoint);
-		if (distance > 0.2) {
+		if (distance > 0.4) {
 			// If distance is larger than 10.0 than run else walk
 			if (distance > 10.0) {
-				agent.speed = 7;
-				animation.Play("Run", PlayMode.StopAll);
+				walking = false;
+				running = true;
 			} else {
-				agent.speed = 4;
-				animation.Play("Walk", PlayMode.StopAll);
+				running = false;
+				walking = true;
 			}
+			agent.SetDestination(moveToPoint);
 		} else {
 			// Animal reached spot, so stop movement
 			moveNavmesh = false;
+			running = false;
+			walking = false;
 		}
-		agent.SetDestination(moveToPoint);
 	}
 }
