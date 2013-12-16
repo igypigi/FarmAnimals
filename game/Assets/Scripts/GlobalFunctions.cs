@@ -59,7 +59,8 @@ public class Animal
 	public string ObjectName { get; set; }
 	public string Description { get; set; }
 	public bool inBarn { get; set; }
-	
+	public bool isFed { get; set; }
+
 	public Animal (string breed, string name, string objectName, string desc)
 	{
 		this.Breed = breed;
@@ -67,6 +68,7 @@ public class Animal
 		this.ObjectName = objectName;
 		this.Description = desc;
 		this.inBarn = true;
+		this.isFed = false;
 	}
 
 	public static Animal getAnimalByObjectName (string name) {

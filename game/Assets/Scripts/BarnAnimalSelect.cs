@@ -77,6 +77,7 @@ public class BarnAnimalSelect : MonoBehaviour {
 				player.GetComponent<ThirdPersonController> ().enabled = true;
 				// Remove this script
 				Destroy(this);
+//				GameObject.Find("Food").GetComponent<AnimalFood> ().enabled = true;
 				break;
 			}
 			animalsLeft --;

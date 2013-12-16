@@ -297,7 +297,7 @@ public class ThirdPersonController : MonoBehaviour
 			Vector3 temp = liftedObject.transform.position;
 			temp.x = gameObject.transform.position.x;
 			temp.y = gameObject.transform.position.y;
-			temp.z = gameObject.transform.position.z + 0.5f;
+			temp.z = gameObject.transform.position.z + 1.5f;
 			liftedObject.transform.position = temp;
 		}
 

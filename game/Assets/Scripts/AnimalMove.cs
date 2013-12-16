@@ -8,6 +8,7 @@ public class AnimalMove : MonoBehaviour {
 	private NavMeshAgent agent;
 	private Vector3 firstPosition;
 	private GameObject fence;
+//	public Vector3 foodBasket;
 	private List<Vector3> possibleMoves;
 
 	// If animals should move this variable should be set
@@ -25,6 +26,8 @@ public class AnimalMove : MonoBehaviour {
 		animal = Animal.getAnimalByObjectName(gameObject.name);
 		// Animal fence object
 		fence = GameObject.Find(animal.Breed + "Fence");
+		// Food Basket
+//		foodBasket = fence.transform.Find("Food basket").transform.position;
 
 		// Possible moves inside fence
 		possibleMoves = new List<Vector3>();
@@ -63,7 +66,7 @@ public class AnimalMove : MonoBehaviour {
 	}
 
 	public void goToFence () {
-		setMoving (fence.transform.position);
+		setMoving (possibleMoves[Random.Range(0, possibleMoves.Count - 1)]);
 		// Start random move
 		moveRandom = true;
 	}
