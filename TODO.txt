@@ -1,0 +1,9 @@
+(BEFORE EACH RUN)
+1. Delete this files before each Unity run:
+game/Library/AnnotationManager
+game/Library/assetDatabase3
+game/Library/AssetImportState
+game/Library/AssetServerCacheV3
+
+(ONLY ONCE)
+2. In Unity go to Assets/Animal/Pig/ and capitalize animations idle, walk, run -> Idle, Walk, Run
