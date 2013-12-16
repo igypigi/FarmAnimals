@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AnimalMove : MonoBehaviour {
+	public Animal animal;
+
 	private NavMeshAgent agent;
 	private Vector3 firstPosition;
-	public Animal animal;
+	private GameObject fence;
+	private List<Vector3> possibleMoves;
 
 	// If animals should move this variable should be set
 	private Vector3 moveToPoint;
@@ -19,14 +23,23 @@ public class AnimalMove : MonoBehaviour {
 		firstPosition = gameObject.transform.position;
 		// Animal object
 		animal = Animal.getAnimalByObjectName(gameObject.name);
+		// Animal fence object
+		fence = GameObject.Find(animal.Breed + "Fence");
+
+		// Possible moves inside fence
+		possibleMoves = new List<Vector3>();
+		foreach (Transform child in fence.transform.Find("Possible moves").transform) { 
+			possibleMoves.Add(child.position);
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (moveNavmesh) {
 			navmeshMove ();
-		} else if (moveRandom) {
-			StartCoroutine(randomMove());   
+		} else if (moveRandom && !moveNavmesh) {
+			// Start new random movement
+			StartCoroutine(randomMove());
 		}
 
 		if (running) {
@@ -35,11 +48,7 @@ public class AnimalMove : MonoBehaviour {
 		} else if (walking) {
 			agent.speed = 4;
 			animation.Play("Walk", PlayMode.StopAll);
-			if (moveRandom) {
-				transform.Translate(4*Time.deltaTime,0,0);
-			}
 		} else {
-			Debug.Log("Idle");
 			animation.Play("Idle", PlayMode.StopAll);
 		}
 	}
@@ -54,17 +63,19 @@ public class AnimalMove : MonoBehaviour {
 	}
 
 	public void goToFence () {
-		setMoving (GameObject.Find(animal.Breed + "Fence").transform.position);
+		setMoving (fence.transform.position);
 		// Start random move
-//		moveRandom = true;
+		moveRandom = true;
 	}
 
 	IEnumerator randomMove () {
-		walking = true;
-		Debug.Log("Move random");
-		yield return new WaitForSeconds (8.0f);
-		Debug.Log("Stop random");
-		walking = false;
+		// Start moving else stay idle
+		if (Random.Range(0.0f, 1.0f) > 0.7f) {
+			setMoving (possibleMoves[Random.Range(0, possibleMoves.Count - 1)]);
+		}
+		moveRandom = false;
+		yield return new WaitForSeconds (Random.Range(6, 20));
+		moveRandom = true;
 	}
 
 	public void navmeshMove () {
