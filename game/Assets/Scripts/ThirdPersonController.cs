@@ -1,6 +1,5 @@
 // Converted from UnityScript to C# at http://www.M2H.nl/files/js_to_c.php - by Mike Hergaarden
 // Do test the code! You usually need to change a few small bits.
-
 using UnityEngine;
 using System.Collections;
 
@@ -14,13 +13,11 @@ public class ThirdPersonController : MonoBehaviour
 	public AnimationClip walkAnimation;
 	public AnimationClip runAnimation;
 	public AnimationClip jumpPoseAnimation;
-
 	public float walkMaxAnimationSpeed = 0.75f;
 	public float trotMaxAnimationSpeed = 1.0f;
 	public float runMaxAnimationSpeed = 1.0f;
 	public float jumpAnimationSpeed = 1.15f;
 	public float landAnimationSpeed = 1.0f;
-
 	private Animation _animation;
 
 	enum CharacterState
@@ -34,64 +31,60 @@ public class ThirdPersonController : MonoBehaviour
 
 	private CharacterState _characterState;
 
-// The speed when walking
+	// The speed when walking
 	public float walkSpeed = 2.0f;
-// after trotAfterSeconds of walking we trot with trotSpeed
+	// after trotAfterSeconds of walking we trot with trotSpeed
 	public float trotSpeed = 4.0f;
-// when pressing "Fire3" button (cmd) we start running
+	// when pressing "Fire3" button (cmd) we start running
 	public float runSpeed = 6.0f;
-
 	public float inAirControlAcceleration = 3.0f;
 
-// How high do we jump when pressing jump and letting go immediately
+	// How high do we jump when pressing jump and letting go immediately
 	public float jumpHeight = 0.5f;
 
-// The gravity for the character
+	// The gravity for the character
 	public float gravity = 20.0f;
-// The gravity in controlled descent mode
+	// The gravity in controlled descent mode
 	public float speedSmoothing = 10.0f;
 	public float rotateSpeed = 500.0f;
 	public float trotAfterSeconds = 3.0f;
-
 	public bool canJump = true;
-
 	private float jumpRepeatTime = 0.05f;
 	private float jumpTimeout = 0.15f;
 	private float groundedTimeout = 0.25f;
 
-// The camera doesnt start following the target immediately but waits for a split second to avoid too much waving around.
+	// The camera doesnt start following the target immediately but waits for a split second to avoid too much waving around.
 	private float lockCameraTimer = 0.0f;
 
-// The current move direction in x-z
+	// The current move direction in x-z
 	private Vector3 moveDirection = Vector3.zero;
-// The current vertical speed
+	// The current vertical speed
 	private float verticalSpeed = 0.0f;
-// The current x-z move speed
+	// The current x-z move speed
 	private float moveSpeed = 0.0f;
 
-// The last collision flags returned from controller.Move
+	// The last collision flags returned from controller.Move
 	private CollisionFlags collisionFlags; 
 
-// Are we jumping? (Initiated with jump button and not grounded yet)
+	// Are we jumping? (Initiated with jump button and not grounded yet)
 	private bool jumping = false;
 	private bool jumpingReachedApex = false;
 
-// Are we moving backwards (This locks the camera to not do a 180 degree spin)
+	// Are we moving backwards (This locks the camera to not do a 180 degree spin)
 	private bool movingBack = false;
-// Is the user pressing any keys?
+	// Is the user pressing any keys?
 	private bool isMoving = false;
-// When did the user start walking (Used for going into trot after a while)
+	// When did the user start walking (Used for going into trot after a while)
 	private float walkTimeStart = 0.0f;
-// Last time the jump button was clicked down
+	// Last time the jump button was clicked down
 	private float lastJumpButtonTime = -10.0f;
-// Last time we performed a jump
+	// Last time we performed a jump
 	private float lastJumpTime = -1.0f;
-
 	private Vector3 inAirVelocity = Vector3.zero;
-
 	private float lastGroundedTime = 0.0f;
-
 	private bool isControllable = true;
+	private bool objectLifted = false;
+	private GameObject liftedObject;
 
 	void  Awake ()
 	{
@@ -100,13 +93,7 @@ public class ThirdPersonController : MonoBehaviour
 		_animation = GetComponent<Animation> ();
 		if (!_animation)
 			Debug.Log ("The character you would like to control doesn't have animations. Moving her might look weird.");
-	
-		/*
-public AnimationClip idleAnimation;
-public AnimationClip walkAnimation;
-public AnimationClip runAnimation;
-public AnimationClip jumpPoseAnimation;	
-	*/
+
 		if (!idleAnimation) {
 			_animation = null;
 			Debug.Log ("No idle animation found. Turning off animations.");
@@ -125,7 +112,6 @@ public AnimationClip jumpPoseAnimation;
 		}
 			
 	}
-
 
 	void  UpdateSmoothedMovementDirection ()
 	{
@@ -219,7 +205,6 @@ public AnimationClip jumpPoseAnimation;
 		
 	}
 
-
 	void  ApplyJumping ()
 	{
 		// Prevent jumping too fast after each other
@@ -236,7 +221,6 @@ public AnimationClip jumpPoseAnimation;
 			}
 		}
 	}
-
 
 	void  ApplyGravity ()
 	{
@@ -283,6 +267,38 @@ public AnimationClip jumpPoseAnimation;
 
 		if (Input.GetButtonDown ("Jump")) {
 			lastJumpButtonTime = Time.time;
+		}
+
+		// Lift object
+		if (Input.GetButtonDown ("Lift")) {
+			if (objectLifted) {
+				objectLifted = false;
+				liftedObject = null;
+			} else {
+				// Get closest food
+				GameObject closestFood = null;
+				float minDistance = 3.0f;
+				foreach (GameObject food in GameObject.FindGameObjectsWithTag ("Liftable")) { 
+					float distance = Vector3.Distance(gameObject.transform.position, food.transform.position);
+					if (distance < minDistance) {
+						minDistance = distance;
+						closestFood = food;
+					}
+				}
+				// If food is in range, lift it
+				if (closestFood != null) {
+					objectLifted = true;
+					liftedObject = closestFood;
+				}
+			}
+		}
+
+		if (objectLifted) {
+			Vector3 temp = liftedObject.transform.position;
+			temp.x = gameObject.transform.position.x;
+			temp.y = gameObject.transform.position.y;
+			temp.z = gameObject.transform.position.z + 0.5f;
+			liftedObject.transform.position = temp;
 		}
 
 		UpdateSmoothedMovementDirection ();
