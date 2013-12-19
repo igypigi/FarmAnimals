@@ -28,20 +28,25 @@ public class StartBarnSelect : MonoBehaviour
 		float distance = Vector3.Distance (startScriptSpot.transform.position, player.transform.position);
 		if (distance < 1.9 && userOnSpot) {
 			startAnimalBarnSelect(true);
+
+			// Disable this script
+			this.enabled = false;
 		} else {
 			startAnimalBarnSelect(false);
 		}
 	}
 
-	public void startAnimalBarnSelect (bool change) {
-		if (change) {
+	public void startAnimalBarnSelect (bool enableBarnAnimalSelect) {
+		if (enableBarnAnimalSelect) {
 			GlobalFunctions.switchCamera ("Barn Camera");
 		} else {
 			GlobalFunctions.switchCamera ("Main Camera");
 		}
+		// Disable/Enable animal proximity script
+		player.GetComponent<AnimalProximity>().enabled = !enableBarnAnimalSelect;
 		// Enable/disable user movement script
-		player.GetComponent<ThirdPersonController> ().enabled = !change;
+		player.GetComponent<ThirdPersonController> ().enabled = !enableBarnAnimalSelect;
 		// Disable/enable barn select script
-		barn.GetComponent<BarnAnimalSelect> ().enabled = change;
+		barn.GetComponent<BarnAnimalSelect> ().enabled = enableBarnAnimalSelect;
 	}
 }
