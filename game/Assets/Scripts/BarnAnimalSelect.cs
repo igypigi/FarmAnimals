@@ -81,6 +81,9 @@ public class BarnAnimalSelect : MonoBehaviour {
 				// Enable animal proximity script
 				player.GetComponent<AnimalProximity>().enabled = true;
 
+				// Hide sparkles
+				GameObject.Find ("AnimalReleaseSpotSparkle").SetActive(false);
+
 //				GameObject.Find("Food").GetComponent<AnimalFood> ().enabled = true;
 				break;
 			}
