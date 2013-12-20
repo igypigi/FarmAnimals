@@ -1,0 +1,32 @@
+{
+    "animals": {
+        "pigs": {
+            "pig": {
+                "objectName": "PigM",
+                "description": "This is a male pig"
+            },
+            "sow": {
+                "objectName": "PigF",
+                "description": "This is a female pig"
+            },
+            "piglet": {
+                "objectName": "PigC",
+                "description": "This is a child pig"
+            }
+        },
+        "sheep": {
+            "ram": {
+                "objectName": "SheepM",
+                "description": "This is a male sheep"
+            },
+            "sheep": {
+                "objectName": "SheepF",
+                "description": "This is a female sheep"
+            },
+            "lamb": {
+                "objectName": "SheepC",
+                "description": "This is a child sheep"
+            }
+        }
+    }
+}
