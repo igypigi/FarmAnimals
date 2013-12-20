@@ -28,7 +28,7 @@ public class AnimalProximity : MonoBehaviour {
 
 		// Find animal closest to player
 		foreach (Animal animal in GlobalFunctions.animals) {
-			GameObject animalObject = GameObject.Find(animal.ObjectName);
+			GameObject animalObject = GameObject.Find(animal.objectName);
 			float dist = Vector3.Distance(playerPosition, animalObject.transform.position);
 			if (dist < closestAnimalDistance && dist <= maxDistanceToAnimalToShowDescription) {
 				closestAnimal = animal;
@@ -37,7 +37,7 @@ public class AnimalProximity : MonoBehaviour {
 		}
 
 		if (closestAnimal != null) {
-			string animalDescription = closestAnimal.Name + "\n\nDescription:\n" + closestAnimal.Description;
+			string animalDescription = closestAnimal.name + "\n\nDescription:\n" + closestAnimal.description;
 			GUI.Box(new Rect(10, 10, 3 * 90 + 20, 2 * 50 + 50), animalDescription);
 		}
 	}

@@ -12,11 +12,7 @@ public class GlobalFunctions {
 			Camera theCam = cam.GetComponent<Camera>() as Camera;
 
 			// Enable cameraName and disable other
-			if (cam.name == cameraName) {
-				theCam.enabled = true;
-			} else {
-				theCam.enabled = false;
-			}
+			theCam.enabled = cam.name == cameraName;
 		}  
 	}
 
@@ -51,29 +47,25 @@ public class GlobalFunctions {
 
 
 // Animal class
-public class Animal
-{	
-	//Properties. 
-	public string Breed { get; set; }
-	public string Name { get; set; }
-	public string ObjectName { get; set; }
-	public string Description { get; set; }
-	public bool inBarn { get; set; }
-	public bool isFed { get; set; }
+public class Animal {	
+	public string breed;
+	public string name;
+	public string objectName;
+	public string description;
 
-	public Animal (string breed, string name, string objectName, string desc)
-	{
-		this.Breed = breed;
-		this.Name = name;
-		this.ObjectName = objectName;
-		this.Description = desc;
-		this.inBarn = true;
-		this.isFed = false;
+	public GameObject gameObject;
+	
+	public Animal (string breed, string name, string objectName, string desc) {
+		this.breed = breed;
+		this.name = name;
+		this.objectName = objectName;
+		this.description = desc;
+		this.gameObject = GameObject.Find(objectName);
 	}
 
 	public static Animal getAnimalByObjectName (string name) {
 		foreach (Animal animal in GlobalFunctions.animals) {
-			if (animal.ObjectName == name) {
+			if (animal.objectName == name) {
 				return animal;
 			}
 		}
