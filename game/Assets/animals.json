@@ -1,32 +1,40 @@
 {
-    "animals": {
+    "animals": [
         "pigs": {
-            "pig": {
+			"breed": "Pig",
+            "male": {
+				"name": "Pig",
                 "objectName": "PigM",
                 "description": "This is a male pig"
             },
-            "sow": {
+            "female": {
+				"name": "Sow",
                 "objectName": "PigF",
                 "description": "This is a female pig"
             },
-            "piglet": {
+            "child": {
+				"name": "Piglet",
                 "objectName": "PigC",
                 "description": "This is a child pig"
             }
         },
         "sheep": {
-            "ram": {
+			"breed": "Sheep",
+            "male": {
+				"name": "Ram",
                 "objectName": "SheepM",
                 "description": "This is a male sheep"
             },
-            "sheep": {
+            "female": {
+				"name": "Sheep",
                 "objectName": "SheepF",
                 "description": "This is a female sheep"
             },
-            "lamb": {
+            "child": {
+				"name": "Lamb",
                 "objectName": "SheepC",
                 "description": "This is a child sheep"
             }
         }
-    }
+    ]
 }

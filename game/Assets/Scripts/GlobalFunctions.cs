@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using SimpleJSON;
 
 public class GlobalFunctions {
 	// List of all animals
 	public static List<Animal> animals = readAnimals();
-
+	
 	public static void switchCamera (string cameraName) {
 		// Loop through all cameras in scene
 		foreach (GameObject cam in GameObject.FindGameObjectsWithTag("Camera")) {
@@ -18,36 +21,33 @@ public class GlobalFunctions {
 
 	private static List<Animal> readAnimals () {
 		List<Animal> list = new List<Animal>();
-		// TODO: read animals from JSON or XML file
-		/*
-		animals.xml or json
-		<breed>
-			<male>
-			<female>
-			<child>
-				<name>
-				<object name>
-				<desription>
-			</child>
-		</breed>
-		<breed>....
-		 */
+		string[] animalTypes = new string[] { "male", "female", "child" };
 
-		list.Add(new Animal("Pig", "Pig", "PigM", "This is a male pig"));
-		list.Add(new Animal("Pig", "Sow", "PigF", "This is a female pig"));
-		list.Add(new Animal("Pig", "Piglet", "PigC", "This is a child pig"));
-
-		list.Add(new Animal("Sheep", "Ram", "SheepM", "This is a male sheep"));
-		list.Add(new Animal("Sheep", "Sheep", "SheepF", "This is a female sheep"));
-		list.Add(new Animal("Sheep", "Lamb", "SheepC", "This is a child sheep"));
-
+		// Read JSON
+		string json = System.IO.File.ReadAllText("Assets/animals.json");
+		JSONNode allAnimals = JSON.Parse(json)["animals"];
+		int index =  0;
+		// Loop through all the animals
+		while (true) {
+			JSONNode animal = allAnimals[index++];
+			if (animal == null) break;
+			// Add animal types -> male, female, child
+			foreach(string type in animalTypes) {
+				list.Add(new Animal(
+					animal["breed"], 
+					animal[type]["name"], 
+					animal[type]["objectName"], 
+					animal[type]["description"]
+				));
+			}
+		}
 		return list;
 	}
 }
 
 
 // Animal class
-public class Animal {	
+public class Animal {
 	public string breed;
 	public string name;
 	public string objectName;
