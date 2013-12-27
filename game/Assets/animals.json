@@ -53,6 +53,24 @@
                 "objectName": "CowC",
                 "description": "This is a child cow"
             }
+        },
+        "geese": {
+			"breed": "Goose",
+            "male": {
+				"name": "Gander",
+                "objectName": "GooseM",
+                "description": "This is a male goose"
+            },
+            "female": {
+				"name": "Goose",
+                "objectName": "GooseF",
+                "description": "This is a female goose"
+            },
+            "child": {
+				"name": "Gosling",
+                "objectName": "GooseC",
+                "description": "This is a child goose"
+            }
         }
     ]
 }
