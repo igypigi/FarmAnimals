@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AnimalMove : MonoBehaviour {
+	// Settings
+	public string walkAnimationName;
+	public string runAnimationName;
+	public string idleAnimationName;
+
 	public Animal animal;
 
 	private NavMeshAgent agent;
@@ -25,7 +30,6 @@ public class AnimalMove : MonoBehaviour {
 		animal = Animal.getAnimalByObjectName(gameObject.name);
 		// Animal fence object
 		fence = GameObject.Find(animal.breed + "Fence");
-		// Food Basket
 
 		// Possible moves inside fence
 		possibleMoves = new List<Vector3>();
@@ -45,12 +49,12 @@ public class AnimalMove : MonoBehaviour {
 
 		if (running) {
 			agent.speed = 7;
-			animation.Play("Run", PlayMode.StopAll);
+			if (runAnimationName.Length > 0) animation.Play(runAnimationName, PlayMode.StopAll);
 		} else if (walking) {
 			agent.speed = 4;
-			animation.Play("Walk", PlayMode.StopAll);
-		} else {
-			animation.Play("Idle", PlayMode.StopAll);
+			if (walkAnimationName.Length > 0) animation.Play(walkAnimationName, PlayMode.StopAll);
+		} else if (idleAnimationName.Length > 0) {
+			animation.Play(idleAnimationName, PlayMode.StopAll);
 		}
 	}
 

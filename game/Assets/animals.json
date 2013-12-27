@@ -35,6 +35,24 @@
                 "objectName": "SheepC",
                 "description": "This is a child sheep"
             }
+        },
+        "cows": {
+			"breed": "Cow",
+            "male": {
+				"name": "Bull",
+                "objectName": "CowM",
+                "description": "This is a male cow"
+            },
+            "female": {
+				"name": "Cow",
+                "objectName": "CowF",
+                "description": "This is a female cow"
+            },
+            "child": {
+				"name": "Calf",
+                "objectName": "CowC",
+                "description": "This is a child cow"
+            }
         }
     ]
 }
