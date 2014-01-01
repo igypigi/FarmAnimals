@@ -71,6 +71,24 @@
                 "objectName": "GooseC",
                 "description": "This is a child goose"
             }
+        },
+        "horses": {
+			"breed": "Horse",
+            "male": {
+				"name": "Stallion",
+                "objectName": "HorseM",
+                "description": "This is a male horse"
+            },
+            "female": {
+				"name": "Mare",
+                "objectName": "HorseF",
+                "description": "This is a female horse"
+            },
+            "child": {
+				"name": "Foal",
+                "objectName": "HorseC",
+                "description": "This is a child horse"
+            }
         }
     ]
 }
