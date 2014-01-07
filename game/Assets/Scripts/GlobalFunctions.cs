@@ -54,6 +54,7 @@ public class Animal {
 	public string description;
 
 	public GameObject gameObject;
+	public Texture image;
 	
 	public Animal (string breed, string name, string objectName, string desc) {
 		this.breed = breed;
@@ -61,6 +62,7 @@ public class Animal {
 		this.objectName = objectName;
 		this.description = desc;
 		this.gameObject = GameObject.Find(objectName);
+		this.image = this.gameObject.GetComponent<AnimalMove>().animalImage;
 	}
 
 	public static Animal getAnimalByObjectName (string name) {

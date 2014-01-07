@@ -39,6 +39,7 @@ public class AnimalProximity : MonoBehaviour {
 		if (closestAnimal != null) {
 			string animalDescription = closestAnimal.name + "\n\nDescription:\n" + closestAnimal.description;
 			GUI.Box(new Rect(10, 10, 3 * 90 + 20, 2 * 50 + 50), animalDescription);
+			GUI.DrawTexture(new Rect(10, 2 * 50 + 50, 3 * 90 + 20, 100), closestAnimal.image, ScaleMode.ScaleToFit, true, 0.0f);
 		}
 	}
 }

@@ -7,6 +7,8 @@ public class AnimalMove : MonoBehaviour {
 	public string walkAnimationName;
 	public string runAnimationName;
 	public string idleAnimationName;
+	// Animal image
+	public Texture animalImage;
 
 	public Animal animal;
 
