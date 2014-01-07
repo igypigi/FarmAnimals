@@ -96,13 +96,16 @@ public class BarnSelect : MonoBehaviour
 			GlobalFunctions.switchCamera ("Main Camera");
 
 			player.GetComponent<ThirdPersonController>().enabled = true;
-			// Remove this script
+			// Disable this script
 			this.enabled = false;
 			// Enable animal proximity script
 			player.GetComponent<AnimalProximity>().enabled = true;
+
+			// enable animal food script
+			player.GetComponent<AnimalFood>().enabled = true;
 			
 			// Hide sparkles
-			GameObject.Find ("AnimalReleaseSpotSparkle").SetActive(false);			
+			GameObject.Find ("AnimalReleaseSpotSparkle").SetActive(false);
 		} else {
 			currentAnimalIndex ++;
 			if (currentAnimalIndex >= animals.Count) {

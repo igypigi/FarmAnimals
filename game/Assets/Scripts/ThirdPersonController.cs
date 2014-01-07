@@ -83,8 +83,6 @@ public class ThirdPersonController : MonoBehaviour
 	private Vector3 inAirVelocity = Vector3.zero;
 	private float lastGroundedTime = 0.0f;
 	private bool isControllable = true;
-	private bool objectLifted = false;
-	private GameObject liftedObject;
 
 	void  Awake ()
 	{
@@ -269,37 +267,6 @@ public class ThirdPersonController : MonoBehaviour
 			lastJumpButtonTime = Time.time;
 		}
 
-		// Lift object
-		if (Input.GetButtonDown ("Lift")) {
-			if (objectLifted) {
-				objectLifted = false;
-				liftedObject = null;
-			} else {
-				// Get closest food
-				GameObject closestFood = null;
-				float minDistance = 3.0f;
-				foreach (GameObject food in GameObject.FindGameObjectsWithTag ("Liftable")) { 
-					float distance = Vector3.Distance(gameObject.transform.position, food.transform.position);
-					if (distance < minDistance) {
-						minDistance = distance;
-						closestFood = food;
-					}
-				}
-				// If food is in range, lift it
-				if (closestFood != null) {
-					objectLifted = true;
-					liftedObject = closestFood;
-				}
-			}
-		}
-
-		if (objectLifted) {
-			Vector3 temp = liftedObject.transform.position;
-			temp.x = gameObject.transform.position.x;
-			temp.y = gameObject.transform.position.y;
-			temp.z = gameObject.transform.position.z + 1.5f;
-			liftedObject.transform.position = temp;
-		}
 
 		UpdateSmoothedMovementDirection ();
 	

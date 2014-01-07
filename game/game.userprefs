@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BarnAnimalSelect.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AnimalFood.cs">
     <Files>
-      <File FileName="Assets\Scripts\BarnAnimalSelect.cs" Line="85" Column="66" />
-      <File FileName="Assets\Scripts\GlobalFunctions.cs" Line="68" Column="27" />
-      <File FileName="Assets\Scripts\AnimalMove.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\StartBarnSelect.cs" Line="7" Column="30" />
+      <File FileName="Assets\Scripts\AnimalProximity.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AnimalFood.cs" Line="51" Column="26" />
+      <File FileName="Assets\Scripts\ThirdPersonController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AnimalProximity.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
