@@ -16,7 +16,6 @@ public class AnimalProximity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	/* Show closest animals description if its distance to player is < maxDistanceToAnimalToShowDescription */
@@ -38,8 +37,10 @@ public class AnimalProximity : MonoBehaviour {
 
 		if (closestAnimal != null) {
 			string animalDescription = closestAnimal.name + "\n\nDescription:\n" + closestAnimal.description;
-			GUI.Box(new Rect(10, 10, 3 * 90 + 20, 2 * 50 + 50), animalDescription);
-			GUI.DrawTexture(new Rect(10, 2 * 50 + 50, 3 * 90 + 20, 100), closestAnimal.image, ScaleMode.ScaleToFit, true, 0.0f);
+			int width = 3 * 90 + 20;
+			GUI.Box(new Rect(10, 10, width, width-40), "");
+			GUI.DrawTexture(new Rect(40, 20, width-60, width-60), closestAnimal.image, ScaleMode.ScaleToFit, true, 0.0f);
+			GUI.Box(new Rect(10, width -20, width, 100), animalDescription);
 		}
 	}
 }
