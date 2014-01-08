@@ -22,7 +22,7 @@ public class AnimalFood : MonoBehaviour {
 		// food baskets
 		foodBaskets = new List<FoodBasket>();
 
-		GameObject fence = GameObject.Find("Fence");
+		GameObject fence = GameObject.Find("Fences");
 		foreach (Transform breedFence in fence.transform) {
 			Transform foodBasket = breedFence.Find("Food basket");
 			string animalBreed = breedFence.name.Substring(0, breedFence.name.Length - "Fence".Length);
