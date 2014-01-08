@@ -47,6 +47,14 @@ public class AnimalFood : MonoBehaviour {
 		Vector3 playerPosition = player.transform.position;
 
 
+		// play sound for next animal
+		GameObject nextAnimal = GameObject.Find(foods[0].animalBreed + "M");
+		if (!nextAnimal.audio.isPlaying) {
+			nextAnimal.audio.Play();
+		}
+
+
+
 		Food closestFood = null;
 		float closestFoodDistance = float.MaxValue;
 
@@ -77,7 +85,7 @@ public class AnimalFood : MonoBehaviour {
 
 		// 
 		if (Input.GetButtonDown("Lift")) {
-			Debug.Log("Button down: Lift");
+			Debug.Log("AnimalFood: button down (Lift)");
 			if (foodInHands != null) {
 				if (closestFoodBasketDistance <= maxDistanceToFoodBasket) {
 					if (foodInHands.animalBreed.Equals(closestFoodBasket.animalBreed)) {
@@ -94,7 +102,12 @@ public class AnimalFood : MonoBehaviour {
 				foodInHands = null;
 			} else {
 				if (closestFoodDistance <= maxDistanceToFood) {
-					foodInHands = closestFood;
+					if (closestFood.animalBreed.Equals(foods[0].animalBreed)){
+						foodInHands = closestFood;
+					} else {
+						// wrong food
+						Debug.Log("AnimalFood: wrong food");
+					}
 				}
 			}
 		}
@@ -114,6 +127,12 @@ public class AnimalFood : MonoBehaviour {
 		this.enabled = false;
 		Debug.Log("AnimalFood: all animals fed");
 		// TODO: add next objective
+	}
+
+
+	// show user current task
+	void OnGUI () {
+		GUI.Box(new Rect(20 + 3 * 90 + 20, 10, 3 * 90, 25), "Feed the animal you hear.");
 	}
 }
 
