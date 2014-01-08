@@ -3,6 +3,12 @@ FarmAnimals
 
 Teaching farm animals game for primary school children
 
+Run instructions
+===========
+1. Open FarmAnimals/game/Assets/Main.unity with Unity (http://unity3d.com/)
+2. OR start game.app on Mac OS X or game.exe on Windows
+3. Enjoy!
+
 Model sources
 ===========
 http://www.rockthe3d.com/60-best-free-3d-animal-models/
