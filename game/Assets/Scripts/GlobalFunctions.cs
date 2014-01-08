@@ -8,7 +8,7 @@ using SimpleJSON;
 public class GlobalFunctions {
 	// List of all animals
 	public static List<Animal> animals = readAnimals();
-	
+
 	public static void switchCamera (string cameraName) {
 		// Loop through all cameras in scene
 		foreach (GameObject cam in GameObject.FindGameObjectsWithTag("Camera")) {
@@ -24,7 +24,8 @@ public class GlobalFunctions {
 		string[] animalTypes = new string[] { "male", "female", "child" };
 
 		// Read JSON
-		string json = System.IO.File.ReadAllText("Assets/animals.json");
+		TextAsset text = Resources.Load("animals") as TextAsset;
+		string json = text.text;
 		JSONNode allAnimals = JSON.Parse(json)["animals"];
 		int index =  0;
 		// Loop through all the animals
