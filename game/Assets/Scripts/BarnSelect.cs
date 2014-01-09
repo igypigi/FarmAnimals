@@ -63,7 +63,7 @@ public class BarnSelect : MonoBehaviour
 	
 	void OnGUI () {
 		if (animalSelectEnabled) {
-			GUI.Box(new Rect(10, 10, 3 * 90 + 20, GlobalFunctions.animals.Count / 3 * 50 + 50), "Izberi živali");
+			GUI.Box(new Rect(10, 10, 3 * 90 + 20, GlobalFunctions.animals.Count / 3 * 50 + 50), "Select animal");
 			
 			int index = 0;
 			foreach (Animal animal in GlobalFunctions.animals) {
