@@ -77,6 +77,8 @@ public class BarnSelect : MonoBehaviour
 						currentAnimal.goToFence();
 						animals.Remove(animal);
 						currentAnimalIndex --;
+
+						GameObject.Find(animal.breed + "M").GetComponent<AudioSource>().Play();
 					}
 					// Get next animal
 					setNextAnimal (correct);
